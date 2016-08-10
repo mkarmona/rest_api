@@ -1,4 +1,3 @@
-
 __author__ = 'andreap'
 
 from flask.ext.restful import Api
@@ -32,6 +31,7 @@ def create_api(app, api_version = '0.0', specpath = '' ):
     from app.resources.utils import Ping, Version
     from app.resources.relation import RelationTarget, RelationDisease
     from app.resources.stats import Stats
+    from app.resources import clustertest
 
     # api.add_resource(AvailableGenes,
     #                  basepath+'/available-genes')
@@ -41,8 +41,7 @@ def create_api(app, api_version = '0.0', specpath = '' ):
     api.add_resource(evidence.FilterBy,
                      '/public/evidence/filter',
                       endpoint="evidence-filter"
-
-                     )
+                      )
     api.add_resource(association.Association,
                      '/public/association',
                      )
@@ -80,6 +79,9 @@ def create_api(app, api_version = '0.0', specpath = '' ):
                      '/private/relation/target/<string:target_id>')
     api.add_resource(RelationDisease,
                      '/private/relation/disease/<string:disease_id>')
+    api.add_resource(clustertest.EvidenceCluster,
+                     '/private/evidence/clustertest',
+                     endpoint="clustertest")
     #
     # api.add_resource(ProxyEnsembl,
     #                  '/proxy/ensembl/<path:url>')
