@@ -82,8 +82,6 @@ class ScoreDataStructure(OutputDataStructure):
                            "private*"]
                }
 
-
-
 class SourceDataStructureOptions():
     DEFAULT = 'default'
     FULL = 'full'
@@ -98,6 +96,7 @@ class SourceDataStructureOptions():
     SCORE = 'score'
     SCORE_SUM = ScoringMethods.SUM
     SCORE_MAX = ScoringMethods.MAX
+    CLUSTERS = 'clusters'
 
 
     options = {
@@ -111,7 +110,7 @@ class SourceDataStructureOptions():
         GENE_AND_DISEASE_ID: GeneAndDiseaseIDDataStructure.source,
         COUNT: OutputDataStructure.source,
         SCORE: ScoreDataStructure.source,
-        CUSTOM: CustomDataStructure.source,
+        CUSTOM: CustomDataStructure.source
     }
 
     @classmethod
@@ -155,9 +154,15 @@ class FilterTypes():
     ECO='eco'
     IS_DIRECT='direct'
     THERAPEUTIC_AREA='therapeutic_area'
-
-
-
+    
+class ClusteringTypes():
+    SIGNIFICANT_TERMS_AGG='significant_terms_agg'
+    SAMPLER_AGG='sampler_agg'
+    TOP_HITS_AGG='top_hits_agg'
+    KMEANS_CARROT_CLUSTERING='kmeans_clustering'
+    STC_CARROT_CLUSTERING= 'stc_clustering'
+    LINGO_CARROT_CLUSTERING='lingo_clustering'
+    
 class AssociationSortOptions:
     OVERALL = 'overall'
 

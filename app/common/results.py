@@ -21,6 +21,7 @@ class Result(object):
                  params = None,
                  data=None,
                  facets=None,
+                 clusters=None,
                  available_datatypes = [],
                  status = ['ok'],
                  therapeutic_areas = []):
@@ -151,7 +152,6 @@ class PaginatedResult(Result):
                 }
             elif self.params.datastructure == SourceDataStructureOptions.SIMPLE:
                 self.data = [self.flatten(hit['_source'], simplify=True) for hit in self.res['hits']['hits']]
-
             else:
                 self.data = [hit['_source'] for hit in self.res['hits']['hits']]
         else:
@@ -160,6 +160,7 @@ class PaginatedResult(Result):
         if self.facets is None:
             if self.res and 'aggregations' in self.res:
                 self.facets = self.res['aggregations']
+         
 
         return {'data': self.data,
                 'facets':self.facets,
@@ -168,8 +169,28 @@ class PaginatedResult(Result):
                 'size': len(self.data) or 0,
                 'from': self.params.start_from,
                 # 'status' : self.status,
-                'therapeutic_areas': self.therapeutic_areas
+                'therapeutic_areas': self.therapeutic_areas,
                 }
+        
+class PaginatedCarrotResult(Result):
+    def toDict(self):
+        if self.data is None:
+           
+            if self.params.datastructure == SourceDataStructureOptions.CLUSTERS:
+                self.data = [hit['_source'] for hit in self.res[1]['hits']['hits']]
+                self.clusters = [self.res[1]['clusters']]
+            
+         
+
+        return {'data': self.data,
+                'total': self.res[1]['hits']['total'],
+                'took': self.res[1]['took'],
+                'size': len(self.data) or 0,
+                'from': self.params.start_from,
+               
+                'clusters': self.clusters
+                }
+
 
 class EmptyPaginatedResult(Result):
     def toDict(self):
