@@ -21,6 +21,7 @@ from app.common.signals import LogException
 from ipaddr import IPNetwork
 from mixpanel import Mixpanel
 from mixpanel_async import AsyncBufferedConsumer
+import certifi
 
 # from flask.ext.cors import CORS
 # from flask_limiter import Limiter
@@ -96,6 +97,7 @@ def create_app(config_name):
                        # sniffer_timeout=60
                        timeout=60 * 20,
                        maxsize=100,
+                       verify_certs=True,
                        )
     '''elasticsearch handlers'''
     app.extensions['esquery'] = esQuery(es,
