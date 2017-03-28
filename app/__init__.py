@@ -99,7 +99,7 @@ def create_app(config_name):
                        # sniffer_timeout=60
                        timeout=60 * 20,
                        maxsize=100,
-                       verify_certs=True,
+                       verify_certs=False,
                        connection_class=RequestsHttpConnection,
                        )
     '''elasticsearch handlers'''
