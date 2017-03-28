@@ -2,6 +2,8 @@ import csv
 import os
 from collections import defaultdict
 from datetime import datetime
+
+from elasticsearch import RequestsHttpConnection
 from flask import Flask, redirect, Blueprint, send_from_directory, g, request
 from flask.ext.compress import Compress
 from redislite import Redis
@@ -98,6 +100,7 @@ def create_app(config_name):
                        timeout=60 * 20,
                        maxsize=100,
                        verify_certs=True,
+                       connection_class=RequestsHttpConnection,
                        )
     '''elasticsearch handlers'''
     app.extensions['esquery'] = esQuery(es,
